@@ -295,7 +295,7 @@ export function InteractivePlatformShowcase() {
 
 function PlatformTabVisual({ activeIdx }: { activeIdx: number }) {
   return (
-    <div className="w-full max-w-[340px] sm:max-w-[360px] mx-auto select-none">
+    <div data-no-splash="true" className="w-full max-w-[340px] sm:max-w-[360px] mx-auto select-none">
       {/* Device / High-Craft Card Shell */}
       <div className="bg-[#121b22] rounded-[40px] p-2.5 shadow-2xl border-4 border-[#232d36] relative overflow-hidden">
         {/* Inner Phone Screen Container */}

@@ -204,7 +204,7 @@ export function WhatsAppInteractivePhone({
   };
 
   return (
-    <div className="w-full max-w-[320px] sm:max-w-[335px] relative mx-auto select-none">
+    <div data-no-splash="true" className="w-full max-w-[320px] sm:max-w-[335px] relative mx-auto select-none">
       {/* Top Floating Controls: Recording / Interactive Switch + Mute/Replay */}
       <div className="flex items-center justify-between gap-2 mb-2 px-1">
         <div className="inline-flex items-center bg-slate-100 p-0.5 rounded-lg border border-slate-200 text-[11px] font-medium">

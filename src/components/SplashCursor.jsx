@@ -669,20 +669,20 @@ function SplashCursor({
       gl.uniform1i(u.uTarget, velocity.read.attach(0));
       gl.uniform1f(u.aspectRatio, aspect);
       gl.uniform2f(u.point, x, y);
-      gl.uniform1f(u.radius, radiusFor(3));
-      gl.uniform1f(u.strength, 1100 * s.force);
+      gl.uniform1f(u.radius, radiusFor(0.85));
+      gl.uniform1f(u.strength, 260 * s.force);
       gl.uniform1f(u.seed, seed);
       blit(velocity.write);
       velocity.swap();
       const offset = Math.random();
-      const amount = 1.6 * s.intensity;
+      const amount = 0.4 * s.intensity;
       const first = inkFor(colorAt(offset, now), amount);
       const second = inkFor(colorAt(offset + 0.3, now), amount);
       u = use('crown');
       gl.uniform1i(u.uTarget, dye.read.attach(0));
       gl.uniform1f(u.aspectRatio, aspect);
       gl.uniform2f(u.point, x, y);
-      gl.uniform1f(u.radius, radiusFor(1.6));
+      gl.uniform1f(u.radius, radiusFor(0.6));
       gl.uniform3f(u.colorA, first[0], first[1], first[2]);
       gl.uniform3f(u.colorB, second[0], second[1], second[2]);
       gl.uniform1f(u.seed, seed);
@@ -926,8 +926,11 @@ function SplashCursor({
       wake();
     };
 
-    const press = (clientX, clientY) => {
+    const press = (clientX, clientY, target) => {
       if (!settingsRef.current.clickSplash) return;
+      if (target && target.closest && target.closest('[data-no-splash], video, button, input, textarea, a')) {
+        return;
+      }
       const point = locate(clientX, clientY);
       if (!point) return;
       bursts.push(point);
@@ -938,13 +941,13 @@ function SplashCursor({
       if (event.pointerType !== 'touch') track(`p${event.pointerId}`, event.clientX, event.clientY);
     };
     const onPointerDown = event => {
-      if (event.pointerType !== 'touch') press(event.clientX, event.clientY);
+      if (event.pointerType !== 'touch') press(event.clientX, event.clientY, event.target);
     };
     const onTouchStart = event => {
       Array.from(event.changedTouches).forEach(touch => {
         pointers.delete(`t${touch.identifier}`);
         track(`t${touch.identifier}`, touch.clientX, touch.clientY);
-        press(touch.clientX, touch.clientY);
+        press(touch.clientX, touch.clientY, touch.target);
       });
     };
     const onTouchMove = event => {

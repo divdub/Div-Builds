@@ -76,15 +76,15 @@ export default function RootLayout({
       <body className="min-h-screen bg-white text-slate-900 font-sans selection:bg-blue-600 selection:text-white flex flex-col relative">
         <SplashCursor
           rainbow={false}
-          size={1}
-          force={1}
-          swirl={3}
+          size={0.65}
+          force={0.4}
+          swirl={1.8}
           trail={1}
           clickSplash
           colorSpeed={1}
-          intensity={1}
-          momentum={1}
-          shading={1}
+          intensity={0.4}
+          momentum={0.7}
+          shading={0.8}
           glow={0}
           quality="high"
           intro
