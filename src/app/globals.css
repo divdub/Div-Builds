@@ -1,26 +1,237 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: light;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Spur OKLCH / High-Trust Enterprise Color System */
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0f172a;
+  --best-ink: #0f172a;
+  --best-muted: #64748b;
+  --best-line: #e2e8f0;
+  --best-panel-a: #f8fafc;
+  --best-panel-b: #f1f5f9;
+  --best-panel-c: #e2e8f0;
+
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-foreground: #ffffff;
+
+  --surface-slate: #f8fafc;
+  --surface-white: #ffffff;
+
+  /* Custom Spring & Quintic Easing Tokens from spurnow.com */
+  --best-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --best-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --at-sweep: 0deg;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@property --at-sweep {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes hero-sweep {
+  to {
+    --at-sweep: 360deg;
   }
 }
 
+@keyframes card-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(56px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes tab-settle {
+  0% {
+    transform: translateY(2px) rotate(-10deg) scale(0.88);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+/* Spur Glowing Conic Sweep Pill */
+.at-conic-pill {
+  position: relative;
+  background: #ffffff;
+  transition: box-shadow 0.3s var(--best-ease);
+}
+
+.at-conic-pill::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--at-sweep),
+    transparent 0deg 280deg,
+    rgba(37, 99, 235, 0.8) 320deg,
+    rgba(59, 130, 246, 0.95) 345deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: hero-sweep 4.5s linear infinite;
+  pointer-events: none;
+}
+
+@theme {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --color-surface-white: #ffffff;
+  --color-surface-slate: #f8fafc;
+  --color-navy-950: #020617;
+  --color-navy-900: #0f172a;
+  --color-navy-800: #1e293b;
+  --color-navy-700: #334155;
+  --color-navy-600: #475569;
+  --color-navy-500: #64748b;
+  --color-brand-blue: #2563eb;
+  --color-brand-blue-hover: #1d4ed8;
+  --color-border-subtle: #e2e8f0;
+  --color-border-strong: #cbd5e1;
+}
+
+html {
+  color-scheme: light;
+  background-color: #ffffff;
+  width: 100%;
+  min-width: 100%;
+  overflow-x: hidden;
+  scrollbar-color: #cbd5e1 #ffffff;
+  scrollbar-width: thin;
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #ffffff;
+  color: var(--best-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  width: 100%;
+  min-width: 100%;
+  overflow-x: hidden;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.vanta-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  pointer-events: none !important;
+}
+
+#vanta-birds-canvas {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* Fluid Clamp Typography Classes matching spurnow.com/en */
+.hero-h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(2.35rem, 5.2vw, 4.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+  color: var(--best-ink);
+  text-wrap: balance;
+}
+
+.section-h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.85rem, 1.2rem + 2vw, 2.75rem);
+  line-height: 1.08;
+  letter-spacing: -0.032em;
+  font-weight: 700;
+  color: var(--best-ink);
+  text-wrap: balance;
+}
+
+.subhead-lead {
+  font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.25rem);
+  line-height: 1.48;
+  letter-spacing: -0.01em;
+  color: var(--best-muted);
+  text-wrap: balance;
+}
+
+/* Subtle scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Subtle dot grid pattern */
+.bg-grid-pattern {
+  background-image: radial-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Spur-Style Segmented Control */
+.segmented-track {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 0.875rem;
+  background-color: var(--best-panel-b);
+  border: 1px solid var(--best-line);
+}
+
+.segmented-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 0.625rem;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--best-muted);
+  transition: all 0.25s var(--best-ease);
+}
+
+.segmented-pill[data-active="true"] {
+  color: var(--best-ink);
+  background-color: #ffffff;
+  box-shadow: 0 1px 2px rgba(15, 22, 36, 0.06), 0 0 0 1px var(--best-line);
+  font-weight: 600;
 }
