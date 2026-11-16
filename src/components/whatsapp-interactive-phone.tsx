@@ -11,8 +11,6 @@ import {
   Mic,
   Plus,
   Play,
-  Volume2,
-  VolumeX,
   Film,
   Smartphone,
 } from "lucide-react";
@@ -34,7 +32,6 @@ export function WhatsAppInteractivePhone({
 }: WhatsAppInteractivePhoneProps) {
   const [mode, setMode] = useState<"video" | "interactive">(initialMode);
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
-  const [isMuted, setIsMuted] = useState<boolean>(true);
   const [progress, setProgress] = useState<number>(0);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -76,14 +73,6 @@ export function WhatsAppInteractivePhone({
     } else {
       vid.pause();
     }
-  };
-
-  const toggleMute = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    const vid = videoRef.current;
-    if (!vid) return;
-    vid.muted = !vid.muted;
-    setIsMuted(vid.muted);
   };
 
   const handleReplay = (e?: React.MouseEvent) => {
@@ -235,20 +224,6 @@ export function WhatsAppInteractivePhone({
         </div>
 
         <div className="flex items-center gap-1.5">
-          {mode === "video" && (
-            <button
-              type="button"
-              onClick={toggleMute}
-              title={isMuted ? "Unmute audio" : "Mute audio"}
-              className="w-7 h-7 rounded-full bg-white border border-slate-200 text-slate-600 shadow-2xs hover:bg-slate-50 flex items-center justify-center cursor-pointer transition-transform active:scale-95"
-            >
-              {isMuted ? (
-                <VolumeX className="w-3.5 h-3.5 text-slate-400" />
-              ) : (
-                <Volume2 className="w-3.5 h-3.5 text-blue-600 animate-pulse" />
-              )}
-            </button>
-          )}
           <button
             type="button"
             onClick={handleReplay}
@@ -270,7 +245,7 @@ export function WhatsAppInteractivePhone({
               src={videoSrc}
               autoPlay
               loop
-              muted={isMuted}
+              muted
               playsInline
               preload="auto"
               onClick={togglePlayPause}
@@ -297,8 +272,8 @@ export function WhatsAppInteractivePhone({
               </div>
             )}
 
-            {/* Bottom Controls Overlay: Progress bar & Sound toggle */}
-            <div className="absolute bottom-2.5 inset-x-3 z-20 flex items-center justify-between gap-2 pointer-events-auto">
+            {/* Bottom Controls Overlay: Full-width Scrubber Bar */}
+            <div className="absolute bottom-3 inset-x-3.5 z-20 pointer-events-auto">
               <div
                 onClick={(e) => {
                   e.stopPropagation();
@@ -308,32 +283,13 @@ export function WhatsAppInteractivePhone({
                     videoRef.current.currentTime = clickPos * videoRef.current.duration;
                   }
                 }}
-                className="flex-1 h-1.5 bg-white/30 hover:h-2 rounded-full overflow-hidden cursor-pointer backdrop-blur-xs transition-all"
+                className="w-full h-1.5 bg-white/30 hover:h-2 rounded-full overflow-hidden cursor-pointer backdrop-blur-xs transition-all"
               >
                 <div
                   className="h-full bg-blue-500 rounded-full transition-all duration-100"
                   style={{ width: `${progress}%` }}
                 />
               </div>
-
-              <button
-                type="button"
-                onClick={toggleMute}
-                className="px-2 py-0.5 rounded-full bg-black/70 backdrop-blur-md text-[10px] text-white/90 border border-white/20 flex items-center gap-1 hover:bg-black/90 transition-colors cursor-pointer"
-                title={isMuted ? "Unmute audio" : "Mute audio"}
-              >
-                {isMuted ? (
-                  <>
-                    <VolumeX className="w-2.5 h-2.5 text-slate-300" />
-                    <span>Muted</span>
-                  </>
-                ) : (
-                  <>
-                    <Volume2 className="w-2.5 h-2.5 text-emerald-400" />
-                    <span>Sound</span>
-                  </>
-                )}
-              </button>
             </div>
 
             {/* iOS Home Indicator Bar */}
