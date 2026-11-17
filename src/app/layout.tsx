@@ -26,6 +26,17 @@ export const metadata: Metadata = {
   authors: [{ name: "Divyansh Dubey", url: "https://solutions.divyanshdubey.dev" }],
   creator: "Divyansh Dubey",
   publisher: "Divyansh Dubey",
+  icons: {
+    icon: [
+      { url: "/logos/GSAS%20Logo%20with%20Blue%20Accent.png", type: "image/png" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    apple: [
+      { url: "/logos/GSAS%20Logo%20with%20Blue%20Accent.png", type: "image/png" },
+      { url: "/apple-icon.png", type: "image/png" },
+    ],
+    shortcut: "/logos/GSAS%20Logo%20with%20Blue%20Accent.png",
+  },
   robots: {
     index: true,
     follow: true,
@@ -65,6 +76,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-white scroll-smooth antialiased" style={{ colorScheme: "light" }}>
       <head>
+        <link rel="icon" href="/logos/GSAS%20Logo%20with%20Blue%20Accent.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/logos/GSAS%20Logo%20with%20Blue%20Accent.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link

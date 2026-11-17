@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, Play, MessageSquare, ArrowUpRight } from "lucide-react";
 import { WHATSAPP_DEMO_URL } from "@/lib/constants";
@@ -37,16 +38,18 @@ export function Navbar({ onOpenVideoModal }: NavbarProps) {
             <Link
               href="/"
               className="group flex items-center gap-2.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded-lg"
-              aria-label="Divyansh - Home"
+              aria-label="GSAS - Home"
             >
-              <div className="w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center font-bold text-sm tracking-tight shadow-2xs group-hover:bg-slate-800 transition-colors">
-                <span>D</span>
-              </div>
               <div className="flex flex-col">
-                <span className="text-sm sm:text-base font-semibold text-slate-900 tracking-tight leading-tight">
-                  Divyansh
-                </span>
-                <span className="text-[10px] font-medium text-slate-500 tracking-wider uppercase">
+                <Image
+                  src="/logos/Modern%20GSAS%20Logo%20with%20Blue%20Accent.png"
+                  alt="GSAS"
+                  width={110}
+                  height={36}
+                  priority
+                  className="h-7 w-auto object-contain -ml-1"
+                />
+                <span className="text-[10px] font-medium text-slate-500 tracking-wider uppercase leading-none mt-0.5">
                   Real Estate Systems
                 </span>
               </div>
