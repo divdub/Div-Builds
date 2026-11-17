@@ -1,7 +1,7 @@
 "use client";
 
-import { ArrowRight, Mail, Check } from "lucide-react";
-import { WHATSAPP_DEMO_URL } from "@/lib/constants";
+import { ArrowRight, MessageSquare, Check } from "lucide-react";
+import { WHATSAPP_DEMO_URL, WHATSAPP_COMMERCIAL_URL } from "@/lib/constants";
 
 export function DarkCtaBanner() {
   return (
@@ -40,10 +40,12 @@ export function DarkCtaBanner() {
             </a>
 
             <a
-              href="mailto:divyanshdubey1108@gmail.com?subject=Commercial%20Sheet%20Request%20-%20WhatsApp%20Lead%20System"
+              href={WHATSAPP_COMMERCIAL_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 text-sm font-medium text-slate-200 bg-slate-800 hover:bg-slate-750 border border-slate-700 rounded-xl transition-colors shadow-2xs cursor-pointer active:translate-y-px focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
             >
-              <Mail className="w-4 h-4 text-slate-400" />
+              <MessageSquare className="w-4 h-4 text-slate-400" />
               <span>Request Commercial Sheet</span>
             </a>
           </div>
